@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char *name;
+    float marks;
+} Student;
+
+int main() {
+    int numStudents = 3; // Example number of students
+    Student *students = (Student *)malloc(numStudents * sizeof(Student)); // Dynamically allocate memory for students
+
+    // Example data for students
+    char *names[] = {"Alice", "Bob", "Charlie"};
+    float marks[] = {85.5, 90.0, 78.5};
+
+    // Store student details
+    for (int i = 0; i < numStudents; i++) {
+        students[i].name = (char *)malloc((strlen(names[i]) + 1) * sizeof(char)); // Allocate memory for name
+        strcpy(students[i].name, names[i]); // Copy name
+        students[i].marks = marks[i]; // Assign marks
+    }
+
+    // Print all student details
+    for (int i = 0; i < numStudents; i++) {
+        printf("Student Name: %s, Marks: %.2f\n", students[i].name, students[i].marks);
+    }
+
+    // Free allocated memory
+    for (int i = 0; i < numStudents; i++) {
+        free(students[i].name); // Free memory allocated for name
+    }
+    free(students); // Free memory allocated for students array
+
+    return 0;
+}
